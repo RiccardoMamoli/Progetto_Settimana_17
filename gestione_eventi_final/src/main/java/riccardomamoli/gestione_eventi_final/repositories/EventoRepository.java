@@ -11,5 +11,4 @@ import java.util.List;
 @Repository
 public interface EventoRepository extends JpaRepository<Evento, Long> {
     List<Evento> findByLuogoEvento(String luogoEvento);
-    boolean exsistsByLuogoEventoAndDataEvento(String luogoEvento, LocalDate dataEvento);
 }

@@ -43,7 +43,7 @@ public class PartecipazioneService {
         Utente utente = utenteRepository.findById(body.idUtente()).orElseThrow(() -> new NotFoundException(body.idUtente()));
         Evento evento = eventoRepository.findById(body.idEvento()).orElseThrow(() -> new NotFoundException(body.idEvento()));
 
-        if (partecipazioneRepository.existsByUtenteIdAndViaggioEventoDataEvento(utente.getId(), evento.getDataEvento())) {
+        if (partecipazioneRepository.existsByUtenteIdAndEventoDataEvento(utente.getId(), evento.getDataEvento())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Il dipendente ha già una prenotazione per questa data.");
         }
 

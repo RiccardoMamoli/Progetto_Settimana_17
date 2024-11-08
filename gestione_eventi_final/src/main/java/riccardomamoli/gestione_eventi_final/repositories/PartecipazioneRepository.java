@@ -11,7 +11,7 @@ import java.util.List;
 public interface PartecipazioneRepository extends JpaRepository<Partecipazione, Long> {
     List<Partecipazione> findByUtenteId(Long utenteId);
     List<Partecipazione> findByEventoId(Long eventoId);
-    boolean existsByUtenteIdAndViaggioEventoDataEvento(Long idDipendente, LocalDate dataEvento);
+    boolean existsByUtenteIdAndEventoDataEvento(Long idDipendente, LocalDate dataEvento);
     Page<Partecipazione> findByUtenteId(Long id, Pageable pageable);
     List<Partecipazione> findByEventoDataEvento(LocalDate dataEvento);
 

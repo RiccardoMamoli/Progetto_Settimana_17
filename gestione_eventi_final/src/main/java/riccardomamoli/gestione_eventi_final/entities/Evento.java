@@ -6,11 +6,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Table(name = "eventi")
 public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEvento;
+    private Long id;
 
     private String nomeEvento;
 
@@ -36,7 +38,7 @@ public class Evento {
     }
 
     public Long getIdEvento() {
-        return idEvento;
+        return id;
     }
 
 
@@ -91,7 +93,7 @@ public class Evento {
     @Override
     public String toString() {
         return "Evento{" +
-                "idEvento=" + idEvento +
+                "id=" + id +
                 ", nomeEvento='" + nomeEvento + '\'' +
                 ", descrizioneEvento='" + descrizioneEvento + '\'' +
                 ", dataEvento=" + dataEvento +

@@ -2,6 +2,7 @@ package riccardomamoli.gestione_eventi_final.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,8 +31,17 @@ public class SecurityConfig {
         httpSecurity.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
         httpSecurity.sessionManagement(httpSecuritySessionManagementConfigurer ->
                 httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                authorizationManagerRequestMatcherRegistry.requestMatchers("/**").permitAll());
+                authorizationManagerRequestMatcherRegistry
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/eventi/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/eventi/**").hasAuthority("ORGANIZZATORE_EVENTI")
+                        .requestMatchers(HttpMethod.PUT, "/eventi/**").hasAuthority("ORGANIZZATORE_EVENTI")
+                        .requestMatchers(HttpMethod.DELETE, "/eventi/**").hasAuthority("ORGANIZZATORE_EVENTI")
+                        .anyRequest().authenticated()
+        );
 
         httpSecurity.cors(Customizer.withDefaults());
         return httpSecurity.build();
