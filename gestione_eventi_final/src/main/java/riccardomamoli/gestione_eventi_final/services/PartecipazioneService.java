@@ -31,12 +31,12 @@ public class PartecipazioneService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public List<Partecipazione> findAll() {
-        return partecipazioneRepository.findAll();
+    public Page<Partecipazione> findAll(Pageable pageable) {
+        return partecipazioneRepository.findAll(pageable);
     }
 
-    public Optional<Partecipazione> findById(Long id) {
-        return partecipazioneRepository.findById(id);
+    public Partecipazione findById(Long id) {
+        return partecipazioneRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
     public Partecipazione savePartecipazione(NewPartecipazioneDTO body) {
@@ -61,5 +61,10 @@ public class PartecipazioneService {
 
     public List<Partecipazione> getPartecipazioniByData(LocalDate dataEvento) {
         return partecipazioneRepository.findByEventoDataEvento(dataEvento);
+    }
+
+    public void findByIdAndDelete(Long id) {
+        Partecipazione prenotazione = this.findById(id);
+        partecipazioneRepository.delete(prenotazione);
     }
 }
