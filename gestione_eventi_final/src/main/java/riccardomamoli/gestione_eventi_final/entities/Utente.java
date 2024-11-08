@@ -45,6 +45,10 @@ public class Utente implements UserDetails {
         this.ruolo = ruolo;
     }
 
+    public void setPasswordUtente(String passwordUtente) {
+        this.passwordUtente = passwordUtente;
+    }
+
     public String getPasswordUtente() {
         return passwordUtente;
     }

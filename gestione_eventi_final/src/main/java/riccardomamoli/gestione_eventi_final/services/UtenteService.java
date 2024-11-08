@@ -1,6 +1,10 @@
 package riccardomamoli.gestione_eventi_final.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import riccardomamoli.gestione_eventi_final.entities.Utente;
 import riccardomamoli.gestione_eventi_final.exceptions.BadRequestException;
@@ -50,5 +54,36 @@ public class UtenteService {
 
     public Utente findById(Long id) {
         return this.utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    public Page<Utente> findAll(int page, int size, String sortBy) {
+        if (size > 100) size = 100;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return this.utenteRepository.findAll(pageable);
+    }
+
+    public Utente findByIdAndUpdate(Long userId, NewUtenteDTO body) {
+        Utente found = this.findById(userId);
+
+        if (!found.getEmailUtente().equals(body.emailUtente())) {
+            this.utenteRepository.findByEmailUtente(body.emailUtente()).ifPresent(
+                    user -> {
+                        throw new BadRequestException("Email " + body.emailUtente() + " già in uso!");
+                    }
+            );
+        }
+
+        found.setNomeUtente(body.nomeUtente());
+        found.setCognomeUtente(body.cognomeUtente());
+        found.setUsernameUtente(body.usernameUtente());
+        found.setEmailUtente(body.emailUtente());
+        found.setPasswordUtente(body.passwordUtente());
+
+        return this.utenteRepository.save(found);
+    }
+
+    public void findByIdAndDelete(Long userId) {
+        Utente found = this.findById(userId);
+        this.utenteRepository.delete(found);
     }
 }
