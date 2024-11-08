@@ -13,6 +13,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import riccardomamoli.gestione_eventi_final.entities.Utente;
 import riccardomamoli.gestione_eventi_final.exceptions.UnauthorizedExceptions;
+import riccardomamoli.gestione_eventi_final.services.UtenteService;
 import riccardomamoli.gestione_eventi_final.tools.JWT;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class JWTCheckerFilter extends OncePerRequestFilter {
     @Autowired
     private JWT jwt;
     @Autowired
-    private UsersService usersService;
+    private UtenteService utenteService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -37,7 +38,7 @@ public class JWTCheckerFilter extends OncePerRequestFilter {
         jwt.verifyToken(accessToken);
 
         String userId = jwt.getIdFromToken(accessToken);
-        Utente currentUser = this.usersService.findById(UUID.fromString(userId));
+        Utente currentUser = this.utenteService.findById(UUID.fromString(userId));
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, currentUser.getAuthorities());
 
