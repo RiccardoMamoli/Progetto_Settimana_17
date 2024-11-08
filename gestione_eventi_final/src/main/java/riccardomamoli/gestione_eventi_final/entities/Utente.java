@@ -133,7 +133,6 @@ public class Utente implements UserDetails {
                 ", dataNascita=" + dataNascita +
                 ", usernameUtente='" + usernameUtente + '\'' +
                 ", ruolo=" + ruolo +
-                ", partecipazioni=" + partecipazioni +
                 '}';
     }
 }
