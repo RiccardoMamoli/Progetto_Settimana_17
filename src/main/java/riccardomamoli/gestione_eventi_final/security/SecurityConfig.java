@@ -35,12 +35,7 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                 authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/eventi/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/eventi/**").hasAuthority("ORGANIZZATORE_EVENTI")
-                        .requestMatchers(HttpMethod.PUT, "/eventi/**").hasAuthority("ORGANIZZATORE_EVENTI")
-                        .requestMatchers(HttpMethod.DELETE, "/eventi/**").hasAuthority("ORGANIZZATORE_EVENTI")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/**").permitAll()
         );
 
         httpSecurity.cors(Customizer.withDefaults());
