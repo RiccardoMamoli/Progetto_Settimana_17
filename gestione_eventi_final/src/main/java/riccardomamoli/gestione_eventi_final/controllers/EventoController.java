@@ -4,6 +4,7 @@ package riccardomamoli.gestione_eventi_final.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class EventoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ORGANIZZATORE_EVENTI')")
     public Evento saveEvento(@RequestBody @Validated NewEventoDTO body, BindingResult validationResult){
         if(validationResult.hasErrors()){
             String message = validationResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.joining(". "));
@@ -44,6 +46,7 @@ public class EventoController {
     }
 
     @PutMapping("/{eventoId}")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE_EVENTI')")
     public Evento findByIdAndUpdate(
             @PathVariable Long eventoId,
             @RequestBody @Validated NewEventoDTO body,
@@ -54,10 +57,11 @@ public class EventoController {
         return this.eventoService.findByIdAndUpdate(eventoId, body);
     }
 
-    @DeleteMapping("/{viaggioId}")
+    @DeleteMapping("/{eventoId}")
+    @PreAuthorize("hasAuthority('ORGANIZZATORE_EVENTI')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void findByIdAndDelete(@PathVariable Long viaggioId) {
-        this.eventoService.findByIdAndDelete(viaggioId);
+    public void findByIdAndDelete(@PathVariable Long eventoId) {
+        this.eventoService.findByIdAndDelete(eventoId);
     }
 
 
