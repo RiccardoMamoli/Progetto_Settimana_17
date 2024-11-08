@@ -2,6 +2,7 @@ package riccardomamoli.gestione_eventi_final.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Evento {
 
     private String descrizioneEvento;
 
-    private LocalDateTime dataEvento;
+    private LocalDate dataEvento;
 
     private String luogoEvento;
 
@@ -26,7 +27,7 @@ public class Evento {
 
     public Evento(){}
 
-    public Evento(String nomeEvento, String descrizioneEvento, LocalDateTime dataEvento, String luogoEvento, int postiDisponibili) {
+    public Evento(String nomeEvento, String descrizioneEvento, LocalDate dataEvento, String luogoEvento, int postiDisponibili) {
         this.nomeEvento = nomeEvento;
         this.descrizioneEvento = descrizioneEvento;
         this.dataEvento = dataEvento;
@@ -55,11 +56,11 @@ public class Evento {
         this.descrizioneEvento = descrizioneEvento;
     }
 
-    public LocalDateTime getDataEvento() {
+    public LocalDate getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(LocalDateTime dataEvento) {
+    public void setDataEvento(LocalDate dataEvento) {
         this.dataEvento = dataEvento;
     }
 
