@@ -15,7 +15,7 @@ public record NewEventoDTO(
         String nomeEvento,
 
         @NotEmpty(message = "La descrizione dell'evento è obbligatoria!")
-        @Size(min = 2, max = 40, message = "La descrizione deve essere compreso tra 2 e 40 caratteri!")
+        @Size(min = 2, max = 2000, message = "La descrizione deve essere compreso tra 2 e 40 caratteri!")
         String descrizioneEvento,
 
         @Future(message = "L'evento deve avere una data futura!")
