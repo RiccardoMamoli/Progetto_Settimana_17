@@ -17,7 +17,6 @@ import riccardomamoli.gestione_eventi_final.services.UtenteService;
 import riccardomamoli.gestione_eventi_final.tools.JWT;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Component
 public class JWTCheckerFilter extends OncePerRequestFilter {
@@ -38,11 +37,11 @@ public class JWTCheckerFilter extends OncePerRequestFilter {
         jwt.verifyToken(accessToken);
 
         String userId = jwt.getIdFromToken(accessToken);
-        Utente currentUser = this.utenteService.findById(UUID.fromString(userId));
+        Utente currentUser = this.utenteService.findById(Long.valueOf(userId));
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, currentUser.getAuthorities());
 
-        SecurityContextHolder.getContext().setAuthentication(authentication); // Aggiorniamo il SecurityContext associandogli l'utente autenticato
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         filterChain.doFilter(request, response);
 
