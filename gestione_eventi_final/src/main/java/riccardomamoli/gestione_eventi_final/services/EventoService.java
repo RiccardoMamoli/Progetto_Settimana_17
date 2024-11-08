@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import riccardomamoli.gestione_eventi_final.entities.Evento;
 import riccardomamoli.gestione_eventi_final.exceptions.BadRequestException;
 import riccardomamoli.gestione_eventi_final.exceptions.NotFoundException;
@@ -13,6 +14,7 @@ import riccardomamoli.gestione_eventi_final.repositories.EventoRepository;
 
 import java.time.LocalDate;
 
+@Service
 public class EventoService {
 
     @Autowired

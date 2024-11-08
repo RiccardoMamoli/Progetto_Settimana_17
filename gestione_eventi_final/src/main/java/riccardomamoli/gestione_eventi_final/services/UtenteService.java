@@ -6,12 +6,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import riccardomamoli.gestione_eventi_final.entities.Utente;
 import riccardomamoli.gestione_eventi_final.exceptions.BadRequestException;
 import riccardomamoli.gestione_eventi_final.exceptions.NotFoundException;
 import riccardomamoli.gestione_eventi_final.payloads.NewUtenteDTO;
 import riccardomamoli.gestione_eventi_final.repositories.UtenteRepository;
 
+@Service
 public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
